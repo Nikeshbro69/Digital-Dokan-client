@@ -42,7 +42,6 @@ const authSlice = createSlice({
 export const {setStatus, setUser} = authSlice.actions
 export default authSlice.reducer
 
-
 export function registerUser(data:IUser){
     return async function registerUserThunk(dispatch:AppDispatch){
         try {

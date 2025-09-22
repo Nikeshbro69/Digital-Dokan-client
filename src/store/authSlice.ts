@@ -5,8 +5,8 @@ import type { AppDispatch } from "./store";
 
 
 interface ILoginUser{
-    email : "string",
-    password : "string"
+    email : string,
+    password : string
 }
 
 interface IUser{

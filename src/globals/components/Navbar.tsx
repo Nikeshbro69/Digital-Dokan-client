@@ -20,7 +20,7 @@ function Navbar() {
         // }
     },[])
     console.log(isLoggedIn)
-    
+
     return(
         <header className="sticky top-0 bg-white shadow">
     <div className="container flex flex-col sm:flex-row justify-between items-center mx-auto py-4 px-8">
@@ -43,14 +43,23 @@ function Navbar() {
       </div>
       
       <div className="hidden md:block">
-   <Link to='/register'>
-   <button type="button" className="mr-5 py-3 px-8 text-sm bg-teal-500 hover:bg-teal-600 rounded text-white ">Register
-        </button>
-   </Link>
-   <Link to='/login'>
-   <button type="button" className=" py-3 px-8 text-sm bg-teal-500 hover:bg-teal-600 rounded text-white ">Login
-        </button>
-   </Link>
+        { 
+          isLoggedIn ? (
+            <Link to='/logout'>
+              <button type="button" className="mr-5 py-3 px-8 text-sm bg-teal-500 hover:bg-teal-600 rounded text-white ">Logout</button>
+          </Link>
+        ) : (
+            <>
+            <Link to='/register'>
+              <button type="button" className="mr-5 py-3 px-8 text-sm bg-teal-500 hover:bg-teal-600 rounded text-white ">Register</button>
+          </Link>
+          <Link to='/login'>
+            <button type="button" className=" py-3 px-8 text-sm bg-teal-500 hover:bg-teal-600 rounded text-white ">Login</button>
+          </Link>
+          </>
+        )
+        }
+   
       </div>
     </div>
   </header>

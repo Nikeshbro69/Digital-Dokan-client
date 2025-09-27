@@ -6,6 +6,7 @@ import Register from './pages/user/Register';
 import Home from './pages/home/Home';
 import Login from './pages/user/Login';
 import Product from './pages/product/product';
+import SingleProduct from './pages/single-product/SingleProduct';
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
           <Route path='/register'  element={<Register />}/>
           <Route path = '/login' element={<Login />} />
           <Route path = '/products' element={<Product />} />
+          <Route path ='/products/:id' element={<SingleProduct />} />
         </Routes>
       </BrowserRouter>
     </Provider>

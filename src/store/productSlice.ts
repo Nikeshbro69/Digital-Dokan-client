@@ -55,7 +55,7 @@ export function fetchProducts(){
 
 
 export function fetchProduct(id:string){
-    return async function fetchProductsThunk(dispatch : AppDispatch, getState:()=>RootState){
+    return async function fetchProductThunk(dispatch : AppDispatch, getState:()=>RootState){
         const store = getState()
         const productExists = store.products.products.find((product)=> product.id === id) //gives output as boolean either true or false
         if(productExists){

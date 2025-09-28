@@ -50,14 +50,21 @@ function SingleProduct() {
         </div>
         </div>
         <div>
+          
+          <div>
           <span className="font-bold text-gray-700 dark:text-gray-300">Product Description:</span>
-          <p className="text-red-600 dark:text-red-300 text-sm mt-2">
+          <p className="text-gray-600 dark:text-gray-300 text-sm mt-2">
             {product?.productDescription}
           </p>
         </div>
+
+                </div>
+
+</div>
+
       </div>
     </div>
-  </div>
+
 
 
 

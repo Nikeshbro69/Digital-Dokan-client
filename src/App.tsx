@@ -7,6 +7,7 @@ import Home from './pages/home/Home';
 import Login from './pages/user/Login';
 import Product from './pages/product/product';
 import SingleProduct from './pages/single-product/SingleProduct';
+import MyCart from './pages/cart/my-cart';
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
           <Route path = '/login' element={<Login />} />
           <Route path = '/products' element={<Product />} />
           <Route path ='/products/:id' element={<SingleProduct />} />
+          <Route path='/my-cart' element={<MyCart/>}/>
         </Routes>
       </BrowserRouter>
     </Provider>

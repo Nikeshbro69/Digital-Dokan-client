@@ -1,7 +1,7 @@
 import { createSlice,type PayloadAction } from "@reduxjs/toolkit";
 import { Status } from "../globals/types/type";
 import { type AppDispatch } from "./store";
-import API from "../http";
+import {API} from "../http";
 
 
 interface ILoginUser{

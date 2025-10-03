@@ -68,10 +68,10 @@ export function fetchCartItems(){
     return async function fetchCartItemsThunk(dispatch:AppDispatch){
         try {
             const response = await APIWITHTOKEN.get('/cart')
-
+            
+            dispatch(setItems(response.data.data))
+            dispatch(setStatus(Status.SUCCESS))
             if(response.status === 200){
-                dispatch(setStatus(Status.SUCCESS))
-                dispatch(setItems(response.data.data))
             }else{
                 dispatch(setStatus(Status.ERROR))
             }

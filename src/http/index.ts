@@ -19,7 +19,7 @@ const APIWITHTOKEN = axios.create({
 
         // response type json 
         "Accept" : "application/json" ,
-        "Authorization " : localStorage.getItem("token")
+        "Authorization" : localStorage.getItem("token")
     }
 })
 

@@ -40,7 +40,7 @@ export function orderItem(data : IData){
         try {
             const response = await APIWITHTOKEN.post("/order", data)
             if(response.status === 200){
-                dispatch(response.data.data)
+                dispatch(setItems(response.data.data))
                 dispatch(setStatus(Status.SUCCESS))
                 if(response.data.url){
                     dispatch(setKhaltiUrl(response.data.url))

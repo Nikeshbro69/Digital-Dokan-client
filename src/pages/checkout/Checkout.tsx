@@ -1,6 +1,6 @@
 import Navbar from "../../globals/components/Navbar";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { useEffect, useState, type ChangeEvent, type FormEvent } from "react";
+import {useEffect, useState, type ChangeEvent, type FormEvent } from "react";
 import { PaymentMethod} from "./types";
 import { orderItem } from "../../store/checkoutSlice";
 
@@ -9,10 +9,11 @@ import { orderItem } from "../../store/checkoutSlice";
 function Checkout(){
   const dispatch = useAppDispatch()
   const {items} = useAppSelector((store)=>store.cart)
-    
-    const total = items.reduce((total, item) => total + (item.product?.productPrice || 0) * item.quantity, 0);
+  const {khaltiUrl} = useAppSelector((store)=>store.orders)
+  
+  const total = items.reduce((total, item) => total + (item.product?.productPrice || 0) * item.quantity, 0);
 
-    const [data, setData] = useState({
+  const [data, setData] = useState({
         firstName : "",
         lastName : "",
         addressLine : "", 
@@ -25,6 +26,17 @@ function Checkout(){
         paymentMethod : PaymentMethod.Cod,
         products : []
 })
+
+    const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>(PaymentMethod.Cod)
+    const handlePaymentMethod = (paymentData:PaymentMethod) =>{
+      setPaymentMethod(paymentData)
+      setData({
+        ...data,
+        paymentMethod : paymentData
+      })
+    }
+    console.log(paymentMethod);
+
 
     const handleChange = (e:ChangeEvent<HTMLInputElement>) =>{
       const {name, value} = e.target
@@ -51,6 +63,13 @@ function Checkout(){
     }
       dispatch(orderItem(finalData))
     }
+
+    useEffect(()=> {
+      if(khaltiUrl){
+        window.location.href = khaltiUrl
+      }
+    },[khaltiUrl])
+
     return(
         <>
             <Navbar />
@@ -122,9 +141,31 @@ function Checkout(){
             <div>
               <input type="text" name="zipCode"  placeholder="Zip Code" className="px-4 py-3 bg-gray-100 focus:bg-transparent text-gray-800 w-full text-sm rounded-md focus:outline-blue-600" onChange={handleChange}/>
             </div>
+            <div>
+              <label htmlFor="paymentMethod">Payment Method: </label>
+              <select name="" id="paymentMethod" onChange={(e)=>handlePaymentMethod(e.target.value as PaymentMethod)} className="px-4 py-3 bg-gray-100 focus:bg-transparent text-gray-800 w-full text-sm rounded-md focus:outline-blue-600"> 
+                <option value={PaymentMethod.Cod}>Cash On Delivery</option>
+                <option value={PaymentMethod.Khalti}>Khalti</option>
+                <option value={PaymentMethod.Esewa}>Esewa</option>
+              </select>
+            </div>
           </div>
           <div className="flex gap-4 max-md:flex-col mt-8">
-            <button type="submit" className="rounded-md px-4 py-2.5 w-full text-sm tracking-wide bg-blue-600 hover:bg-blue-700 text-white">Complete Purchase</button>
+            {
+              paymentMethod === PaymentMethod.Cod && (
+                <button type="submit" className="rounded-md px-4 py-2.5 w-full text-sm tracking-wide bg-blue-600 hover:bg-blue-700 text-white">Pay with Cash</button>
+              )
+            }
+            {
+              paymentMethod === PaymentMethod.Khalti && (
+                <button type="submit" className="rounded-md px-4 py-2.5 w-full text-sm tracking-wide bg-purple-600 hover:bg-purple-700 text-white">Pay with Khalti</button>
+              )
+            }
+            {
+              paymentMethod === PaymentMethod.Esewa && (
+                <button type="submit" className="rounded-md px-4 py-2.5 w-full text-sm tracking-wide bg-green-600 hover:bg-green-700 text-white">Pay with Esewa</button>
+              )
+            }
           </div>
         </div>
       </form>

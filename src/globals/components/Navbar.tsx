@@ -16,7 +16,7 @@ function Navbar() {
 
     useEffect(()=>{
 
-        console.log(reduxToken, localStorageToken)
+        console.log(reduxToken)
         setIsLoggedIn(!!reduxToken || !!localStorageToken)
         // if(localStorageToken && reduxToken){
         //     setIsLoggedIn(true)

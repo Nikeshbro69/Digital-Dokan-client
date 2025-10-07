@@ -38,7 +38,6 @@ export function fetchProducts(){
     return async function fetchProductsThunk(dispatch : AppDispatch){
         try {
             const response = await API.get("/product")
-            console.log(response);
             if(response.status === 200){
                 dispatch(setProducts(response.data.data))
                 dispatch(setStatus(Status.SUCCESS))
@@ -64,8 +63,6 @@ export function fetchProduct(id:string){
         }else{
             try {
                 const response = await API.get("/product/" + id)
-                console.log(response);
-                console.log(response)
                 if(response.status === 200){
                     
                     dispatch(setStatus(Status.SUCCESS))

@@ -2,6 +2,8 @@ import {Link} from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
 import { useEffect, useState } from 'react'
 import { fetchCartItems } from '../../store/cartSlice'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCartShopping } from '@fortawesome/free-solid-svg-icons'
 
 
 
@@ -50,7 +52,7 @@ function Navbar() {
         { 
           isLoggedIn ? (
             <>
-              <span className="mr-[50px]"><Link to='/my-cart'>Cart<sup>{items?.length > 0 ? items?.length : 0}</sup></Link></span>
+              <span className="mr-[50px]"><Link to='/my-cart'><FontAwesomeIcon icon={faCartShopping} /><sup>{items?.length > 0 ? items?.length : 0}</sup></Link></span>
               <Link to='/logout'>
                 <button type="button" className="mr-5 py-3 px-8 text-sm bg-teal-500 hover:bg-teal-600 rounded text-white ">Logout</button>
             </Link>

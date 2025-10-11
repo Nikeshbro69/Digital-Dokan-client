@@ -46,7 +46,7 @@ function MyOrder(){
                     {
                         newItems.length > 0 && newItems.map((item)=>{
                             return (
-                                <tr className="bg-white transition-all duration-500 hover:bg-gray-50">
+                                <tr className="bg-white transition-all duration-500 hover:bg-gray-50" key={item.id}>
                                 <Link to={`/my-orders/${item.id}`}>
                                 <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium text-gray-900 ">{item?.id}</td>
                                 </Link>

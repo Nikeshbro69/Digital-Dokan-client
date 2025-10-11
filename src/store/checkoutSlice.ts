@@ -3,11 +3,13 @@ import { Status } from "../globals/types/type";
 import type { IData, IOrder, IOrderItems } from "../pages/checkout/types";
 import type { AppDispatch } from "./store";
 import { APIWITHTOKEN } from "../http";
+import type { IOrderDetail } from "../pages/my-orders-details/types";
 
 const initialState:IOrder = {
     status : Status.LOADING,
     items : [],
-    khaltiUrl : null 
+    khaltiUrl : null,
+    orderDetails : []
 }
 
 
@@ -18,7 +20,9 @@ const orderSlice = createSlice({
         setItems(state:IOrder, action:PayloadAction<IOrderItems[]>){
             state.items = action.payload
         },
-        
+        setOrderDetails(state:IOrder, action:PayloadAction<IOrderDetail[]>){
+            state.orderDetails = action.payload
+        },
         setStatus(state:IOrder, action:PayloadAction<Status>){
             state.status = action.payload
         },
@@ -30,7 +34,7 @@ const orderSlice = createSlice({
     
 })
 
-export const {setItems, setStatus, setKhaltiUrl} = orderSlice.actions 
+export const {setItems, setStatus, setKhaltiUrl, setOrderDetails} = orderSlice.actions 
 export default orderSlice.reducer
 
 
@@ -76,8 +80,9 @@ export function fetchMyOrderDetails(id:string){
     return async function fetchMyOrderDetailThunk(dispatch:AppDispatch){
         try {
             const response = await APIWITHTOKEN.get("/order/" + id)
+            console.log(response)
             if(response.status === 200){
-                dispatch(setItems(response.data.data))
+                dispatch(setOrderDetails(response.data.data))
                 dispatch(setStatus(Status.SUCCESS))
             }else{
                 dispatch(setStatus(Status.ERROR))

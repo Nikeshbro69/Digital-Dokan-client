@@ -4,6 +4,7 @@ import type { IData, IOrder, IOrderItems } from "../pages/checkout/types";
 import type { AppDispatch } from "./store";
 import { APIWITHTOKEN } from "../http";
 import type { IOrderDetail } from "../pages/my-orders-details/types";
+import { OrderStatus } from "../pages/my-orders-details/types";
 
 const initialState:IOrder = {
     status : Status.LOADING,
@@ -29,12 +30,26 @@ const orderSlice = createSlice({
 
         setKhaltiUrl(state:IOrder, action:PayloadAction<string>){
             state.khaltiUrl = action.payload
+        },
+        
+        updateOrderStatusToCancel(state:IOrder, action:PayloadAction<{orderId:string}>){
+            const orderId = action.payload.orderId
+            // state.items.map((item)=>)
+            // const data = state.items.find((item)=>item.id === orderId)
+            // if(data){
+            //     data.orderStatus = OrderStatus.Cancelled
+            // }
+
+            // const data = state.orderDetails.map((order)=>order.orderId === orderId ? {...order, [order.order.orderStatus] : OrderStatus.Cancelled}: order)
+            // console.log(data,"ST")
+            const datas = state.orderDetails.find((order)=>order.orderId === orderId)
+            datas ? datas.order.orderStatus = OrderStatus.Cancelled : ""
         }
     }
     
 })
 
-export const {setItems, setStatus, setKhaltiUrl, setOrderDetails} = orderSlice.actions 
+export const {setItems, setStatus, setKhaltiUrl, setOrderDetails, updateOrderStatusToCancel} = orderSlice.actions 
 export default orderSlice.reducer
 
 
@@ -83,6 +98,25 @@ export function fetchMyOrderDetails(id:string){
             console.log(response)
             if(response.status === 200){
                 dispatch(setOrderDetails(response.data.data))
+                dispatch(setStatus(Status.SUCCESS))
+            }else{
+                dispatch(setStatus(Status.ERROR))
+            }
+        } catch (error) {
+            console.log(error)
+            dispatch(setStatus(Status.ERROR))
+        }
+    }
+}
+
+export function cancelOrderAPI(id:string){
+    return async function cancelOrderTAPIhunk(dispatch:AppDispatch){
+        console.log(id,"mero")
+        try {
+            const response = await APIWITHTOKEN.patch("/order/cancel-order/" + id)
+            console.log(response, "response")
+            if(response.status === 200){
+                dispatch(updateOrderStatusToCancel({orderId : id}))
                 dispatch(setStatus(Status.SUCCESS))
             }else{
                 dispatch(setStatus(Status.ERROR))

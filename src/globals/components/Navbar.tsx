@@ -33,7 +33,8 @@ function Navbar() {
     return(
         <header className="sticky top-0 bg-white shadow">
     <div className="container flex flex-col sm:flex-row justify-between items-center mx-auto py-4 px-8">
-      <div className="flex items-center text-2xl">
+      <Link to={"/"}>
+        <div className="flex items-center text-2xl">
         <div className="w-12 mr-3">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
             <path fill="#BEE3F8" d="M44,7L4,23l40,16l-7-16L44,7z M36,23H17l18-7l1,6V23z" />
@@ -44,6 +45,7 @@ function Navbar() {
           </svg>
         </div>Digital Dokan
       </div>
+      </Link>
       <div className="flex mt-4 sm:mt-0">
         <Link className="px-4" to="/products">Products</Link>
       </div>

@@ -2,8 +2,9 @@ import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
 import { Status } from "../globals/types/type";
 import type { AppDispatch } from "./store";
-import { APIWITHTOKEN} from "../http";
+import { API, APIWITHTOKEN} from "../http";
 import type { IProduct } from "../pages/admin/products/components/ProductModal";
+import type { RootState } from "./store";
 
 
 
@@ -24,12 +25,14 @@ export interface IProductAdmin {
 }
 interface IProductInitialState{
     products : IProductAdmin[],
-    status : Status
+    status : Status,
+    product : null | IProductAdmin
 }
 
 const initialState:IProductInitialState = {
     products : [],
-    status : Status.LOADING
+    status : Status.LOADING,
+    product : null
 }
 
 
@@ -53,10 +56,13 @@ const productSlice= createSlice({
         addProductToProducts(state:IProductInitialState, action:PayloadAction<IProductAdmin>){
             state.products.push(action.payload)
         },
+        setProduct(state:IProductInitialState, action:PayloadAction<IProductAdmin>){
+                    state.product = action.payload
+        }
     }
 })
 
-export const {setProducts, setStatus,addProductToProducts} = productSlice.actions
+export const {setProducts, setStatus,addProductToProducts, setProduct} = productSlice.actions
 export default productSlice.reducer
 
 
@@ -100,6 +106,31 @@ export function addProduct(data: IProduct){
     }
 }
 
+export function fetchProductAdmin(id:string){
+    return async function fetchProductAdminThunk(dispatch : AppDispatch, getState:()=>RootState){
+        const store = getState()
+        const productExists = store.adminProducts.products.find((product:IProductAdmin)=> product.id === id) //gives output as boolean either true or false
+        if(productExists){
+            dispatch(setProduct(productExists))
+            dispatch(setStatus(Status.SUCCESS))
+        }else{
+            try {
+                const response = await API.get("/product/" + id)
+                if(response.status === 200){
+                    
+                    dispatch(setStatus(Status.SUCCESS))
+                    dispatch(setProduct(response.data.data.length > 0 && response.data.data[0]))
+                }else{
+                    dispatch(setStatus(Status.ERROR))
+                }
+            } catch (error) {
+                console.log(error);
+                dispatch(setStatus(Status.ERROR))
+            }
+        }
+    }
+
+}
 
 // export function deleteUserById(id:string){
 //     return async function deleteUserByIdThunk(dispatch:AppDispatch){

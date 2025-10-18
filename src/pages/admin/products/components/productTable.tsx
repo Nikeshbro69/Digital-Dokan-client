@@ -1,6 +1,7 @@
 import { type IProductAdmin } from "../../../../store/adminProductSlice"
 import {useCallback, useState} from 'react'
 import ProductModal from "./ProductModal"
+import { Link } from "react-router-dom"
 
 function ProductTable({products} : {products : IProductAdmin[]}){
 
@@ -50,7 +51,7 @@ function ProductTable({products} : {products : IProductAdmin[]}){
                     console.log(product)
                     return (
                          <tr key={product?.id}className="bg-white transition-all duration-500 hover:bg-gray-50">
-              <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium text-gray-900 ">{product?.id}</td>
+              <Link to={`/products/${product?.id}`}><td className="p-5 whitespace-nowrap text-sm leading-6 font-medium text-gray-900 ">{product?.id}</td></Link>
               <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium text-gray-900">{product?.productName}</td>
               <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium text-gray-900">{product?.productPrice}</td>
               <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium text-gray-900">{product?.productTotalStock}</td>

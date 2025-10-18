@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from "../../../../store/hooks"
 import { useEffect, useState, type ChangeEvent, type FormEvent } from "react"
 
 export interface IProduct{
+        id? : string,
         productName : string,
         productPrice : number,
         productTotalStock : number,

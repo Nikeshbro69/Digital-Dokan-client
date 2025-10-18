@@ -11,10 +11,10 @@ import MyCart from './pages/cart/my-cart';
 import Checkout from './pages/checkout/Checkout';
 import MyOrder from './pages/my-orders/MyOrder';
 import MyOrderDetail from './pages/my-orders-details/MyOrderDetail';
-import AdminLayout from './pages/admin/AdminLayout';
 import Categories from './pages/admin/categories/Categories';
 import AdminStats from './pages/admin/stats/AdminStats';
 import User from './pages/admin/users/Users';
+import AdminProduct from './pages/admin/products/Product';
 
 
 
@@ -38,6 +38,7 @@ function App() {
           <Route path='/admin' element = {<AdminStats />} />
           <Route path='/admin/categories' element = {<Categories />} />
           <Route path='/admin/users' element={<User />} />
+          <Route path='/admin/products' element={<AdminProduct />} />
         </Routes>
       </BrowserRouter>
     </Provider>

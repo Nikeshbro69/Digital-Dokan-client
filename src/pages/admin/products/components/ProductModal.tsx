@@ -1,5 +1,6 @@
 import { Status } from "../../../../globals/types/type"
-import { fetchCategory, resetStatus } from "../../../../store/adminCategorySlice"
+import { fetchCategory } from "../../../../store/adminCategorySlice"
+import { resetStatus } from "../../../../store/adminProductSlice"
 import { addProduct } from "../../../../store/adminProductSlice"
 import { useAppDispatch, useAppSelector } from "../../../../store/hooks"
 import { useEffect, useState, type ChangeEvent, type FormEvent } from "react"

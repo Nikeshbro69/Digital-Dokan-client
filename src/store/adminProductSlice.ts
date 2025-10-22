@@ -46,23 +46,26 @@ const productSlice= createSlice({
         setStatus(state:IProductInitialState, action:PayloadAction<Status>){
             state.status = action.payload
         },
-        // deleteUser(state:IUserInitialState, action:PayloadAction<string>){
-        //     const index = state.users.findIndex((user)=>user?.id === action.payload)
-        //     if(index !== -1){
-        //         state.users.splice(index, 1)
-        //     }
-        // }
+        deleteProduct(state:IProductInitialState, action:PayloadAction<string>){
+            const index = state.products.findIndex((product)=>product?.id === action.payload)
+            if(index !== -1){
+                state.products.splice(index, 1)
+            }
+        },
 
         addProductToProducts(state:IProductInitialState, action:PayloadAction<IProductAdmin>){
             state.products.push(action.payload)
         },
         setProduct(state:IProductInitialState, action:PayloadAction<IProductAdmin>){
                     state.product = action.payload
+        },
+        resetStatus(state:IProductInitialState){
+                    state.status = Status.LOADING
         }
     }
 })
 
-export const {setProducts, setStatus,addProductToProducts, setProduct} = productSlice.actions
+export const {setProducts, setStatus,addProductToProducts, setProduct, deleteProduct, resetStatus} = productSlice.actions
 export default productSlice.reducer
 
 
@@ -132,19 +135,19 @@ export function fetchProductAdmin(id:string){
 
 }
 
-// export function deleteUserById(id:string){
-//     return async function deleteUserByIdThunk(dispatch:AppDispatch){
-//         try {
-//             const response = await APIWITHTOKEN.delete('/auth/users/' + id)
-//             if(response.status === 200){
-//                 dispatch(deleteUser(id))
-//                 dispatch(setStatus(Status.SUCCESS))
-//             }else{
-//                 dispatch(setStatus(Status.ERROR))
-//             }
-//         } catch (error) {
-//             console.log(error)
-//             dispatch(setStatus(Status.ERROR))
-//         }
-//     }
-// }
+export function deleteProductById(id:string){
+    return async function deleteUserByIdThunk(dispatch:AppDispatch){
+        try {
+            const response = await APIWITHTOKEN.delete('/product/' + id)
+            if(response.status === 200){
+                dispatch(deleteProduct(id))
+                dispatch(setStatus(Status.SUCCESS))
+            }else{
+                dispatch(setStatus(Status.ERROR))
+            }
+        } catch (error) {
+            console.log(error)
+            dispatch(setStatus(Status.ERROR))
+        }
+    }
+}

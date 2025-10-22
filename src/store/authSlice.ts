@@ -56,7 +56,7 @@ export function registerUser(data:IUser){
         try {
             const response = await API.post("/auth/register",data)
             console.log(response)
-            if(response.status === 200){
+            if(response.status === 201){
                 dispatch(setStatus(Status.SUCCESS))
                 dispatch(setUser(data))
             }else{

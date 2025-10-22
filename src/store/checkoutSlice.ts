@@ -44,12 +44,21 @@ const orderSlice = createSlice({
             // console.log(data,"ST")
             const datas = state.orderDetails.find((order)=>order.orderId === orderId)
             datas ? datas.order.orderStatus = OrderStatus.Cancelled : ""
+        },
+
+        updateOrderStatusInSlice(state:IOrder, action:PayloadAction<{status:OrderStatus, userId : string, orderId:string}>){
+            const {status, orderId} = action.payload
+            console.log(status,"sliceststus")
+            const updatedOrder = state.items.map((order)=>order.id === orderId ? {...order, orderStatus : status} : order)
+            console.log(updatedOrder,"slice")
+            state.items = updatedOrder
         }
+
     }
     
 })
 
-export const {setItems, setStatus, setKhaltiUrl, setOrderDetails, updateOrderStatusToCancel} = orderSlice.actions 
+export const {setItems, setStatus, setKhaltiUrl, setOrderDetails, updateOrderStatusToCancel, updateOrderStatusInSlice} = orderSlice.actions 
 export default orderSlice.reducer
 
 
@@ -127,3 +136,5 @@ export function cancelOrderAPI(id:string){
         }
     }
 }
+
+

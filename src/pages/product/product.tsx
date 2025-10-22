@@ -10,6 +10,7 @@ import Card from "./components/Card"
 function  Product(){
     const dispatch = useAppDispatch()
     const {products, status} = useAppSelector((store)=>store.products)
+    console.log(products,"products")
     useEffect(()=>{
         dispatch(fetchProducts())
     }, [])
@@ -21,6 +22,7 @@ function  Product(){
 <div>
   <section id="Projects" className="w-fit mx-auto grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 justify-items-center justify-center gap-y-20 gap-x-14 mt-10 mb-5">
     {products.length > 0 && products.map((product)=>{
+      console.log(product,"single")
         return(
             
             <Card key={product.id} product={product}/>

@@ -8,25 +8,25 @@ interface ICardProps{
 const Card:React.FC<ICardProps> = ({product})=>{
     
     return(
-         <Link to={`/products/${product.id}`}>
+         <Link to={`/products/${product?.id}`}>
               <div className="w-72 bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
       <a href="#">
-        <img src={`http://localhost:4000/${product.productImageUrl}`} alt="Product" className="h-80 w-72 object-cover rounded-t-xl" />
+        <img src={`http://localhost:4000/${product?.productImageUrl}`} alt="Product" className="h-80 w-72 object-cover rounded-t-xl" />
         <div className="px-4 py-3 w-72">
-          <span className="text-gray-400 mr-3 uppercase text-xs">{product.category.categoryName}</span>
-          <p className="text-lg font-bold text-black truncate block capitalize">{product.productName}</p>
+          <span className="text-gray-400 mr-3 uppercase text-xs">{product?.category?.categoryName}</span>
+          <p className="text-lg font-bold text-black truncate block capitalize">{product?.productName}</p>
           <div className="flex items-center">
             {
                 product.discount > 0 ? 
                 (
                     <>
-                    <p className="text-lg font-semibold text-black cursor-auto my-3">Rs. {product.productPrice - product.productPrice * product.discount/100 }</p>
+                    <p className="text-lg font-semibold text-black cursor-auto my-3">Rs. {product?.productPrice - product?.productPrice * product?.discount/100 }</p>
                     <del>
-                        <p className="text-sm text-gray-600 cursor-auto ml-2">{product.productPrice}</p>
+                        <p className="text-sm text-gray-600 cursor-auto ml-2">{product?.productPrice}</p>
                     </del>
                     </>
                 ):(
-                    <p className="text-sm text-gray-600 cursor-auto ml-2">Rs. {product.productPrice}</p>
+                    <p className="text-sm text-gray-600 cursor-auto ml-2">Rs. {product?.productPrice}</p>
                 )
             }
             

@@ -11,7 +11,7 @@ function Checkout(){
   const {items} = useAppSelector((store)=>store.cart)
   const {khaltiUrl} = useAppSelector((store)=>store.orders)
   
-  const total = items.reduce((total, item) => total + (item.product?.productPrice || 0) * item.quantity, 0);
+  const total = items.reduce((total, item) => total + (item.product?.productPrice || 0) * item?.quantity, 0);
 
   const [data, setData] = useState({
         firstName : "",
@@ -48,11 +48,11 @@ function Checkout(){
 
     const handleSubmit = (e:FormEvent<HTMLFormElement>) =>{
       e.preventDefault();
-      const productData = items.length > 0  ? items.map((item)=>{
+      const productData = items?.length > 0  ? items?.map((item)=>{
       
       return {
-        productId : item.product.id,
-        productQty : item.quantity
+        productId : item?.product?.id,
+        productQty : item?.quantity
       }
     }) : []
 
@@ -80,9 +80,9 @@ function Checkout(){
         <div className="px-4 py-8 sm:overflow-auto sm:h-[calc(100vh-60px)]">
           <div className="space-y-4">
       {
-        items.length > 0 ? items.map((item)=>{
+        items?.length > 0 ? items?.map((item)=>{
             return ( 
-                <div className="flex items-start gap-4" key={item.id}>
+                <div className="flex items-start gap-4" key={item?.id}>
                 <div className="w-32 h-28 max-lg:w-24 max-lg:h-24 flex p-3 shrink-0 bg-gray-200 rounded-md">
                   <img src={`http://localhost:4000/${item?.product?.productImageUrl}`} className="w-full object-contain" alt="Productname"/>
                 </div>

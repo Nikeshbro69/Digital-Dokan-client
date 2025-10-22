@@ -27,6 +27,7 @@ function Register(){
         dispatch(registerUser(data))
     }
     useEffect(()=>{
+        console.log(status,"resgister success")
         if(status === Status.SUCCESS){
             navigate("/login")
         }else if (status === Status.ERROR){
